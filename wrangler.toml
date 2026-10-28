@@ -1,0 +1,23 @@
+name = "booking-system"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+# Create the database with:  npx wrangler d1 create booking-db
+# then paste the id it prints below.
+[[d1_databases]]
+binding = "DB"
+database_name = "booking-db"
+database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+
+# Sends 24h and 1h reminders. Runs every 15 minutes.
+[triggers]
+crons = ["*/15 * * * *"]
+
+[vars]
+FROM_EMAIL = "Your Name <hello@yourdomain.com>"   # a domain verified in Resend
+OWNER_EMAIL = "you@yourdomain.com"                # where new-booking alerts go
+
+# Secrets (never put these in this file):
+#   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put TELEGRAM_BOT_TOKEN   (optional)
+#   npx wrangler secret put TELEGRAM_CHAT_ID     (optional)
